@@ -1,4 +1,4 @@
-package de.takuto.euler.de.takuto.euler.problems;
+package de.takuto.euler.problems;
 
 import de.takuto.euler.EulerProblem;
 
@@ -8,11 +8,11 @@ import de.takuto.euler.EulerProblem;
  *
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
  *
- * @see https://projecteuler.net/problem=2
+ * See: https://projecteuler.net/problem=2
  */
 public class EulerProblem2 implements EulerProblem {
 
-    @Override
+
     public String solve() {
         int firstPrevious = 1;
         int secondPrevious = 2;
@@ -39,7 +39,7 @@ public class EulerProblem2 implements EulerProblem {
         return "The sum of all even evaluated terms smaller than 4 Million is " + sumOfAllEven;
     }
 
-    @Override
+
     public int getNumber() {
         return 2;
     }
