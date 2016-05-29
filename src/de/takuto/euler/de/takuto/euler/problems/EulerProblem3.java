@@ -1,13 +1,19 @@
-package de.takuto.euler;
+package de.takuto.euler.de.takuto.euler.problems;
+
+import de.takuto.euler.EulerProblem;
 
 /**
- * Created by lennart on 29.05.16.
+ * The prime factors of 13195 are 5, 7, 13 and 29.
+ * What is the largest prime factor of the number 600851475143 ?
+ *
+ * @see https://projecteuler.net/problem=3
  */
-public class EulerProblem3 {
+public class EulerProblem3 implements EulerProblem {
 
     private static long TARGET = 600851475143L;
 
-    public static String solve() {
+    @Override
+    public String solve() {
 
         long product = TARGET;
         long i = 1;
@@ -27,7 +33,12 @@ public class EulerProblem3 {
         return "Largest factor of " + TARGET + " is: " + largestFactor;
     }
 
-    private static boolean isPrime(long number) {
+    @Override
+    public int getNumber() {
+        return 3;
+    }
+
+    private boolean isPrime(long number) {
         for(long i = 3; i < number; i++) {
             if(number % i == 0) {
                 return false;

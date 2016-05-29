@@ -1,5 +1,7 @@
 package de.takuto.euler;
 
+import de.takuto.euler.de.takuto.euler.problems.EulerProblem3;
+
 /**
  * Created by lennart on 29.05.16.
  */
