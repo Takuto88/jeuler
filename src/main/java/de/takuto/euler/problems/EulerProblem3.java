@@ -11,7 +11,7 @@ import de.takuto.euler.utils.MathUtil;
  */
 public class EulerProblem3 implements EulerProblem {
 
-    private static long TARGET = 600851475143L;
+    private static final long TARGET = 600851475143L;
 
     public String solve() {
 
