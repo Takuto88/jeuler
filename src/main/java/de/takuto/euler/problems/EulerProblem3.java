@@ -1,6 +1,7 @@
 package de.takuto.euler.problems;
 
 import de.takuto.euler.EulerProblem;
+import de.takuto.euler.utils.MathUtil;
 
 /**
  * The prime factors of 13195 are 5, 7, 13 and 29.
@@ -20,7 +21,7 @@ public class EulerProblem3 implements EulerProblem {
 
         while(product != 1){
             i++;
-            if(!isPrime(i)) {
+            if(!MathUtil.isPrime(i)) {
                 continue;
             }
             while(product % i == 0) {
@@ -34,15 +35,6 @@ public class EulerProblem3 implements EulerProblem {
 
     public int getNumber() {
         return 3;
-    }
-
-    private boolean isPrime(long number) {
-        for(long i = 3; i < number; i++) {
-            if(number % i == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }
