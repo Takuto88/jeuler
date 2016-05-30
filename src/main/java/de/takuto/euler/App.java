@@ -74,8 +74,11 @@ public class App {
 
     public static void main(String args[]) {
         Options options = new Options();
+
         options.addOption("h", "help", false, "Displays help message");
-        options.addOption("r", "run", true, "Runs the given Euler problem number");
+        Option runOpt = new Option("r", "run", true, "Runs the given EulerProblem");
+        runOpt.setArgName("no");
+        options.addOption(runOpt);
         options.addOption("a", "all", false, "Runs all Euler problems");
 
         try {
@@ -83,6 +86,7 @@ public class App {
             App app = App.getInstance();
             if(!cli.hasOption("r") && !cli.hasOption("a") ||cli.hasOption("h")) {
                 printHelp(options);
+                System.exit(1);
             } else if(cli.hasOption("a")) {
                 app.run(RUN_ALL);
                 return;
@@ -94,7 +98,13 @@ public class App {
                 app.run(problemNo);
             } catch(NumberFormatException e) {
                 printHelp(options);
+                System.exit(1);
             }
+
+        } catch (MissingArgumentException e) {
+            System.err.println(e.getMessage());
+            printHelp(options);
+            System.exit(1);
 
         } catch (ParseException e) {
             System.err.println("Error parsing command line!");
@@ -108,10 +118,13 @@ public class App {
     private static void printHelp(Options options) {
         System.out.println("Usage jeuler [OPTIONS]");
         for(Option option : options.getOptions()) {
-            System.out.println("-" + option.getOpt() + " --" + option.getLongOpt() + ": \t\t\t" + option.getDescription());
-        }
+            if(option.hasArg() || option.hasOptionalArg()) {
+                System.out.println("-" + option.getOpt() + " --" + option.getLongOpt() + " [" +  option.getArgName() + "]: \t\t\t" + option.getDescription());
+            } else {
+                System.out.println("-" + option.getOpt() + " --" + option.getLongOpt() + ": \t\t\t\t" + option.getDescription());
+            }
 
-        System.exit(0);
+        }
     }
 
 }
