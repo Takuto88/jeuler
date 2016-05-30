@@ -10,11 +10,11 @@ public class MathUtil {
      * @return True if it is, otherwise false
      */
     public static boolean isPrime(long number) {
-        if(number < 2) {
+        if (number < 2 || (number != 2 && number % 2 == 0)) {
             return false;
         }
-        for(long i = 2; i < number; i++) {
-            if(number % i == 0) {
+        for(long i = 3;i * i <= number; i += 2) {
+            if(number %i == 0) {
                 return false;
             }
         }
