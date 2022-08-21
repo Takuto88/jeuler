@@ -9,13 +9,13 @@ public class EulerProblem17 implements EulerProblem {
     private static final int END_NUMBER = 1000;
 
     public String solve() {
-        String sum = "";
+        var sum = new StringBuilder();
 
-        for (int num = 1; num <= END_NUMBER; num++) {
-            sum += EnglishNumberToWords.convert((long) num);
+        for (var num = 1; num <= END_NUMBER; num++) {
+            sum.append(EnglishNumberToWords.convert(num));
         }
 
-        sum = sum.trim().replaceAll("[\\s|\\-]", "");
+        sum = new StringBuilder(sum.toString().trim().replaceAll("[\\s|\\-]", ""));
 
         return "The numbers 1 through " + END_NUMBER + " written out are using " + sum.length() + " letters";
     }

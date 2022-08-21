@@ -36,10 +36,10 @@ public class EulerProblem8 implements EulerProblem {
     public String solve() {
 
         long product = 0;
-        for(int i = 0; i < NUMBER_AS_ARRAY.length - WINDOW_SIZE + 1; i++){
-            long tmpProduct = 1;
-            for(int z = 0; z < WINDOW_SIZE; z++) {
-                int n = NUMBER_AS_ARRAY[i+z];
+        for(var i = 0; i < NUMBER_AS_ARRAY.length - WINDOW_SIZE + 1; i++){
+            var tmpProduct = 1L;
+            for(var z = 0; z < WINDOW_SIZE; z++) {
+                final var n = NUMBER_AS_ARRAY[i+z];
                 // Perfomance optimization: If there is a zero in our current window
                 // it can be skipped entirely as x * 0 = 0.
                 if(n == 0) {

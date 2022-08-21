@@ -6,11 +6,12 @@ import java.math.BigInteger;
 
 /**
  * Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
- *
+ * <p>
  * 37107287533902102798797998220837590246510135740250
  * 46376937677490009712648124896970078050417018260538
  * 74324986199524741059474233309513058123726617309629
  * [...] // <- Omitted for bravery
+ * </p>
  */
 public class EulerProblem13 implements EulerProblem {
 
@@ -118,12 +119,12 @@ public class EulerProblem13 implements EulerProblem {
     };
 
     public String solve() {
-        BigInteger sumOfAllIntegers = new BigInteger("0");
-        for (String number : EulerProblem13.NUMBERS) {
+        var sumOfAllIntegers = new BigInteger("0");
+        for (final var number : EulerProblem13.NUMBERS) {
             sumOfAllIntegers = sumOfAllIntegers.add(new BigInteger(number));
         }
 
-        String firstTenDigitsOfSum = sumOfAllIntegers.toString().substring(0,10);
+        final var firstTenDigitsOfSum = sumOfAllIntegers.toString().substring(0,10);
         return "The first ten digits of the 50 digit number added are: " + firstTenDigitsOfSum;
     }
 

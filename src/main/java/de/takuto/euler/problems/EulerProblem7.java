@@ -12,9 +12,9 @@ public class EulerProblem7 implements EulerProblem {
     private static final int NTH_PRIME_NUMBER = 10001;
 
     public String solve() {
-        int primeCounter = 0;
-        long currentNumber = 0;
-        long primeNumber = 0;
+        var primeCounter = 0;
+        var currentNumber = 0L;
+        var primeNumber = 0L;
 
         do{
             if(MathUtil.isPrime(currentNumber)) {

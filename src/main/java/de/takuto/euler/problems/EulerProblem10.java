@@ -8,10 +8,11 @@ import de.takuto.euler.utils.MathUtil;
  * Find the sum of all the primes below two million.
  */
 public class EulerProblem10 implements EulerProblem {
-    private final int FIND_SUM_OF_PRIMES_BELOW_N = 2000000;
+    private final static int FIND_SUM_OF_PRIMES_BELOW_N = 2000000;
+
     public String solve() {
-        long sumOfPrimes = 0;
-        for(int i = 1; i < FIND_SUM_OF_PRIMES_BELOW_N; i++) {
+        var sumOfPrimes = 0L;
+        for(var i = 1; i < FIND_SUM_OF_PRIMES_BELOW_N; i++) {
             if(MathUtil.isPrime(i)){
                 sumOfPrimes += i;
             }

@@ -3,10 +3,6 @@ package de.takuto.euler;
 import org.apache.commons.cli.*;
 import org.reflections.Reflections;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Set;
-
 /**
  * Main class to execute all problems
  */
@@ -16,7 +12,7 @@ public class App {
     private static final int RUN_ALL = -1;
     private static final int MAX_NUMBER_OF_EULER_PROBLEMS = 552;
 
-    private EulerProblem[] problems;
+    private final EulerProblem[] problems;
 
     public static App getInstance() {
         if(instance == null) {
@@ -27,30 +23,30 @@ public class App {
     }
 
     private App() {
-        Reflections reflections = new Reflections("de.takuto.euler.problems");
-        Set<Class<? extends EulerProblem>> problemSet = reflections.getSubTypesOf(EulerProblem.class);
+        final var reflections = new Reflections("de.takuto.euler.problems");
+        final var problemSet = reflections.getSubTypesOf(EulerProblem.class);
         problems = new EulerProblem[MAX_NUMBER_OF_EULER_PROBLEMS];
-        for(Class problemClass : problemSet) {
+        for(final var problemClass : problemSet) {
             try {
                 if(EulerProblem.class.isAssignableFrom(problemClass) ) {
-                    Constructor<?> constructor = problemClass.getConstructor();
-                    EulerProblem problem = (EulerProblem) constructor.newInstance();
+                    final var constructor = problemClass.getConstructor();
+                    final var problem = (EulerProblem) constructor.newInstance();
                     problems[problem.getNumber() - 1] = problem;
                 }
-            } catch (NoSuchMethodException e) {
+            } catch (final NoSuchMethodException e) {
                 System.err.println("EulerProblem class " + problemClass.getCanonicalName() + " does not have default constructor!");
                 System.exit(1);
-            } catch (Throwable t) {
-                System.err.println("An unknown error occured!");
+            } catch (final Throwable t) {
+                System.err.println("An unknown error occurred!");
                 t.printStackTrace();
                 System.exit(1);
             }
         }
     }
 
-    public void run(int problemNo) {
+    public void run(final int problemNo) {
         if(problemNo == RUN_ALL) {
-            for(EulerProblem problem : problems) {
+            for(final var problem : problems) {
                 if(problem == null) {
                     continue;
                 }
@@ -64,7 +60,7 @@ public class App {
             System.exit(1);
         }
 
-        EulerProblem problem = problems[problemNo - 1];
+        final var problem = problems[problemNo - 1];
         if(problem == null) {
             System.err.println("Problem number " + problemNo + " not (yet) implemented!");
             System.exit(1);
@@ -72,18 +68,18 @@ public class App {
         System.out.println("EulerProblem " + problem.getNumber() + ": " + problem.solve());
     }
 
-    public static void main(String args[]) {
-        Options options = new Options();
+    public static void main(final String[] args) {
+        final var options = new Options();
 
         options.addOption("h", "help", false, "Displays help message");
-        Option runOpt = new Option("r", "run", true, "Runs the given EulerProblem");
+        final var runOpt = new Option("r", "run", true, "Runs the given EulerProblem");
         runOpt.setArgName("no");
         options.addOption(runOpt);
         options.addOption("a", "all", false, "Runs all Euler problems");
 
         try {
-            CommandLine cli = new DefaultParser().parse(options, args);
-            App app = App.getInstance();
+            final var cli = new DefaultParser().parse(options, args);
+            final var app = App.getInstance();
             if(!cli.hasOption("r") && !cli.hasOption("a") ||cli.hasOption("h")) {
                 printHelp(options);
                 System.exit(1);
@@ -92,21 +88,21 @@ public class App {
                 return;
             }
 
-            int problemNo = 0;
+            var problemNo = 0;
             try {
                 problemNo = Integer.parseInt(cli.getOptionValue("r"));
                 app.run(problemNo);
-            } catch(NumberFormatException e) {
+            } catch(final NumberFormatException e) {
                 printHelp(options);
                 System.exit(1);
             }
 
-        } catch (MissingArgumentException e) {
+        } catch (final MissingArgumentException e) {
             System.err.println(e.getMessage());
             printHelp(options);
             System.exit(1);
 
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             System.err.println("Error parsing command line!");
             e.printStackTrace();
             System.exit(1);
@@ -115,9 +111,9 @@ public class App {
 
     }
 
-    private static void printHelp(Options options) {
+    private static void printHelp(final Options options) {
         System.out.println("Usage jeuler [OPTIONS]");
-        for(Option option : options.getOptions()) {
+        for(final var option : options.getOptions()) {
             if(option.hasArg() || option.hasOptionalArg()) {
                 System.out.println("-" + option.getOpt() + " --" + option.getLongOpt() + " [" +  option.getArgName() + "]: \t\t\t" + option.getDescription());
             } else {

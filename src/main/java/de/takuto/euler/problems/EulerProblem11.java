@@ -4,7 +4,7 @@ import de.takuto.euler.EulerProblem;
 
 /**
  * In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
- *
+ * <p>
  *   08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
  *   49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
  *   81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
@@ -25,11 +25,13 @@ import de.takuto.euler.EulerProblem;
  *   20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
  *   20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
  *   01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
+ * </p>
+ * <p>
+ *  The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
+ *  What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
+ * </p>
  *
- * The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
- * What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
- *
- * See https://projecteuler.net/problem=11
+ * See <a href="https://projecteuler.net/problem=11">EulerProblem #11</a>
  */
 public class EulerProblem11 implements EulerProblem {
 
@@ -61,12 +63,12 @@ public class EulerProblem11 implements EulerProblem {
     private static final int MAX_ADJACENT = 4;
 
     public String solve() {
-        long product = 1;
+        var product = 1L;
 
-        for(int x = 0; x < MATRIX.length; x++) {
-            for(int y = 0; y < MATRIX[x].length; y++) {
-                for(Direction dir : Direction.values() ) {
-                    long tmpProduct = lookDirection(x, y, dir);
+        for(var x = 0; x < MATRIX.length; x++) {
+            for(var y = 0; y < MATRIX[x].length; y++) {
+                for(final var dir : Direction.values() ) {
+                    final var tmpProduct = lookDirection(x, y, dir);
                     if(tmpProduct > product) {
                         product = tmpProduct;
                     }
@@ -91,9 +93,9 @@ public class EulerProblem11 implements EulerProblem {
      * @param d The direction to look
      * @return The product or zero if MAX_ADJACENT would be out of bounds
      */
-    private long lookDirection(int x, int y, Direction d) {
-        int counter = 0;
-        long product = 1;
+    private long lookDirection(int x, int y, final Direction d) {
+        var counter = 0;
+        var product = 1L;
         while (counter < MAX_ADJACENT) {
             // Prevent out-of-bounds error
             if(x >= MATRIX.length) {
@@ -111,20 +113,17 @@ public class EulerProblem11 implements EulerProblem {
             product *= MATRIX[x][y];
 
             // Change index to new direction
-            switch(d) {
-                case RIGHT:
-                    y++;
-                    break;
-                case DOWN:
-                    x++;
-                    break;
-                case RIGHT_DIAGONAL_DOWN:
+            switch (d) {
+                case RIGHT -> y++;
+                case DOWN -> x++;
+                case RIGHT_DIAGONAL_DOWN -> {
                     x++;
                     y++;
-                    break;
-                case LEFT_DIAGONAL_DOWN:
+                }
+                case LEFT_DIAGONAL_DOWN -> {
                     x++;
                     y--;
+                }
             }
 
             // Increase counter

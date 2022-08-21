@@ -13,10 +13,10 @@ public class EulerProblem16 implements EulerProblem {
     private static final int EXPONENT = 1000;
 
     public String solve() {
-        String strRes = BigInteger.valueOf(2).pow(EXPONENT).toString();
-        int sum = 0;
+        final var strRes = BigInteger.valueOf(2).pow(EXPONENT).toString();
+        var sum = 0;
 
-        for (char c : strRes.toCharArray()) {
+        for (final var c : strRes.toCharArray()) {
             sum += Integer.parseInt("" + c);
         }
 

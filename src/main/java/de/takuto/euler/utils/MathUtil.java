@@ -1,15 +1,15 @@
 package de.takuto.euler.utils;
 
 /**
- * Problem-wide math utilitiy class
+ * Problem-wide math utility class
  */
 public class MathUtil {
     /**
-     * Checks, whether or not the given number is a prime number
+     * Checks, whether the given number is a prime number
      * @param number to check
      * @return True if it is, otherwise false
      */
-    public static boolean isPrime(long number) {
+    public static boolean isPrime(final long number) {
         if (number < 2 || (number != 2 && number % 2 == 0)) {
             return false;
         }
