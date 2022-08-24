@@ -45,43 +45,41 @@ import java.nio.file.Paths;
  */
 public class EulerProblem18 implements EulerProblem {
 
-    private static final String TRIANGLE_FILE = "EulerProblem18_b.txt"; // located under fixtures
+    // located under fixtures. There's also EulerProblem18_b with the small triangle.
+    private static final String TRIANGLE_FILE = "EulerProblem18_a.txt";
 
     public String solve() {
-        final var triangleString = loadTriangleString();
-        createTriangleFromString(triangleString);
+        final var triangle = loadTriangleFixture();
 
+        for(var line = triangle.length - 2 ; line >= 0; line--) {
+            for (var column = 0; column < triangle[line + 1].length -1; column++) {
+                triangle[line][column] += Math.max(triangle[line + 1][column], triangle[line+1][column + 1]);
+            }
+        }
 
-        return null;
+        return String.format(String.format("The maximum total of adjacent numbers from top to bottom is %d", triangle[0][0]));
     }
 
     public int getNumber() {
         return 18;
     }
 
-    private String loadTriangleString() {
+    private int[][] loadTriangleFixture() {
         try (final var lines = Files.lines(Paths.get("src/main/resources/de/takuto/euler/fixtures/" + TRIANGLE_FILE))) {
-            final var sb = new StringBuilder();
-            lines.forEach((line) -> sb.append(line).append("\n"));
+            final var integerLines = lines.map(line -> line.split(" "))
+                    .map(stringNumbers -> {
+                        final var numbers = new int[stringNumbers.length];
+                        for (var i = 0; i < stringNumbers.length; i++) {
+                            numbers[i] = Integer.parseInt(stringNumbers[i]);
+                        }
 
-            return sb.toString();
+                        return numbers;
+                    }).toList();
+
+            return integerLines.toArray(new int[integerLines.size()][]);
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private String[][] createTriangleFromString(final String input) {
-        final var lines = input.split("\\" + System.lineSeparator());
-        final var lastLine = lines[lines.length - 1];
-        final var numberOfCols = lastLine.split(" ").length;
-
-        var triangle = new String[lines.length][numberOfCols];
-
-        for (var rows = lines.length - 1; rows >= 0; rows--) {
-
-        }
-
-        return null;
     }
 
 }
